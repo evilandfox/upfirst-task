@@ -12,6 +12,18 @@ https://genes.notion.site/TypeScript-Knowledge-Assessment-Task-Implementing-an-O
 
 ### WARNINGS
 
-- By the task authorize route don't make any authentication process (for example via email/password). It doesn't make sense in real world
+- By the task authorize route don't make any authentication process (for example login via email/password). It doesn't make sense in real world
 - There no protection against refresh token stealing
-- Start script invokes node which invokes typescript code. In production environment we better to bundle output code
+- Of course I can do better, refactor code, make it more safe etc, but I don't want to spend more time and the task doesn't require it
+
+### HOW TO TEST
+
+You firstly need to add `.env.test` file a least the following lines to be able to check token or code expiration
+
+```env
+AUTH_CODE_EXPIRY=3
+ACCESS_TOKEN_EXPIRY=3
+REFRESH_TOKEN_EXPIRY=3
+
+```
+
