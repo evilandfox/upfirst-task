@@ -12,7 +12,6 @@ describe('oauth2 process', () => {
       client_id: process.env.CLIENT_ID,
       redirect_uri: process.env.REDIRECT_URI,
     }
-
     test('should throw on invalid query parameters', async () => {
       type ParamKey = keyof typeof params
       const errorBody: Record<ParamKey, unknown> = {
@@ -66,5 +65,36 @@ describe('oauth2 process', () => {
       assert.equal(typeof redirectUrl.searchParams.get('code'), 'string')
       assert.equal(redirectUrl.searchParams.get('state'), state)
     })
+  })
+
+  describe('POST /api/oauth/token', () => {
+    test('should throw on invalid body parameters', async () => {
+      const params = {
+        client_id: process.env.CLIENT_ID,
+        redirect_uri: process.env.REDIRECT_URI,
+      }
+      type ParamKey = keyof typeof params
+      const errorBody: Record<ParamKey, unknown> = {
+        client_id: {
+          error: 'invalid_client',
+          error_description: 'Unknown client_id',
+        },
+        redirect_uri: {
+          error: 'invalid_request',
+          error_description: 'redirect_uri mismatch',
+        },
+      }
+      for (const omittedParam of Object.keys(params) as ParamKey[]) {
+        const payload = new URLSearchParams({ ...params })
+        payload.delete(omittedParam)
+        const response = await server
+          .post(`/api/oauth/token`)
+          .send(payload.toString())
+        assert.equal(response.status, 400)
+        assert.deepEqual(response.body, errorBody[omittedParam])
+      }
+    })
+
+    describe('authorization code', () => {})
   })
 })
