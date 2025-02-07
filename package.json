@@ -2,7 +2,7 @@
   "name": "upfirst-task",
   "description": "",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "dist/index.mjs",
   "scripts": {
     "dev": "cross-env NODE_ENV=development node --experimental-transform-types --watch -r dotenv-flow/config src/index.mts",
     "test": "cross-env NODE_ENV=test node --test --experimental-strip-types -r dotenv-flow/config",
