@@ -1,0 +1,25 @@
+{
+  "name": "upfirst-task",
+  "description": "",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development node --experimental-transform-types --watch -r dotenv-flow/config src/index.mts",
+    "test": "cross-env NODE_ENV=test node --test --experimental-strip-types -r dotenv-flow/config",
+    "build": "tsc",
+    "start": "cross-env NODE_ENV=production node -r dotenv-flow/config dist/index.mjs"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv-flow": "^4.1.0",
+    "express": "^4.21.2",
+    "jose": "^5.9.6"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/supertest": "^6.0.2",
+    "supertest": "^7.0.0",
+    "typescript": "^5.7.3"
+  }
+}
